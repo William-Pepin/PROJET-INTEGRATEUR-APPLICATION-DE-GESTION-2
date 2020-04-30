@@ -12,12 +12,13 @@ La partie "Back-End" du projet se situe dans le dossier "api".
 
 La partie "Front-end" du projet sur situe dans le dossier "app".
 
-Les fichiers pour la base de données se situe dans le dossier "db".
+Les fichiers pour la base de données se situe dans le dossier "db". 
+
 **Nom de la base de donné** : projet-integrateur
 
-**Nom de la collection des personnes** : personnes
+**Nom de la collection des personnes** : persons
 
-**Nom de la collection des tâches** : taches
+**Nom de la collection des tâches** : tasks
 
 ## EN
 
@@ -33,8 +34,8 @@ Database files are stored in the "db" folder.
 
 **Database name** : projet-integrateur
 
-**persons collection name** : personnes
+**persons collection name** : persons
 
-**tasks collection name** : taches
+**tasks collection name** : tasks
 
 

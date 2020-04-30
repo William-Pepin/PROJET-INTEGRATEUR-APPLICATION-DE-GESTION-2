@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5eab5ae9d4fb997718ab46ed"},"firstName":"John","lastName":"Doe"}
+{"_id":{"$oid":"5eab5ae9d4fb997718ab46ee"},"firstName":"Louis","lastName":"Vuitton"}
+{"_id":{"$oid":"5eab5ae9d4fb997718ab46ef"},"firstName":"Coco","lastName":"Chanel"}
+{"_id":{"$oid":"5eab5ae9d4fb997718ab46f0"},"firstName":"Christian","lastName":"Dior"}
+{"_id":{"$oid":"5eab5ae9d4fb997718ab46f1"},"firstName":"Paris","lastName":"Givenchy"}
