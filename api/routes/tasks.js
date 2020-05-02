@@ -50,8 +50,14 @@ router.get('/person/:person_id', (req, res, next) => {
         assert.equal(null, err); // Checks if there's no error
         const db = client.db(dbName);
 
+        var person_id = null
+        if (req.params.person_id !== undefined) {
+            if (req.params.person_id.toString().length === 12) {
+                person_id = ObjectID.createFromHexString(req.params.person_id);
+            }
+        }
         // MongoDB Query -> find tasks using person_id sort by id ascending and makes an array
-        db.collection(collection).find({ person_id: ObjectID.createFromHexString(req.params.person_id) }).sort({ _id: 1 }).toArray((err, result) => {
+        db.collection(collection).find({ person_id: person_id }).sort({ _id: 1 }).toArray((err, result) => {
             // MongoDB Query Callback Function
 
             if (err) return console.log(err) // Logs any error
@@ -72,8 +78,14 @@ router.get('/:id', (req, res, next) => {
         assert.equal(null, err); // Checks if there's no error
         const db = client.db(dbName);
 
+        var person_id = null
+        if (req.params.person_id !== undefined) {
+            if (req.params.person_id.toString().length === 12) {
+                person_id = ObjectID.createFromHexString(req.params.person_id);
+            }
+        }
         // MongoDB Query -> find one task creates ObjectID from string given in the id request parameters
-        db.collection(collection).findOne({ _id: ObjectID.createFromHexString(req.params.id) }, (err, result) => {
+        db.collection(collection).findOne({ _id: person_id }, (err, result) => {
             // MongoDB Query Callback Function
 
             if (err) return console.log(err) // Logs any error
@@ -97,6 +109,7 @@ router.post('/', (req, res, next) => {
         res.json({ "msg": "Données invalides." });
     } else {
         task.completed = false;
+
 
         MongoClient.connect(url, (err, client) => {
             // MongoDB Connect Callback Function
@@ -135,7 +148,7 @@ router.put('/:id', function (req, res, next) {
             const db = client.db(dbName);
 
             // MongoDB Query -> find one task creates ObjectID from string given in the id request parameters
-            db.collection(collection).updateOne({_id: ObjectID.createFromHexString(req.params.id)}, {$set : task},
+            db.collection(collection).updateOne({ _id: ObjectID.createFromHexString(req.params.id) }, { $set: task },
                 (err, result) => {
                     // MongoDB Query Callback Function
 
