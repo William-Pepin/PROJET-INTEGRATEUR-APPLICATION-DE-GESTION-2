@@ -76,11 +76,10 @@ router.post('/', (req, res, next) => {
     var person = req.body;
 
     // Checks for data
-    if (!(person.firstName) || !(person.lastName)) {
+    if (!isValid(person)) {
         res.status(400);
         res.json({ "msg": "Données invalides." });
     } else {
-        person.completed = false;
 
         MongoClient.connect(url, (err, client) => {
             // MongoDB Connect Callback Function
@@ -110,7 +109,8 @@ router.put('/:id', function (req, res, next) {
 
     var person = req.body;
 
-    if (!(person.firstName) || !(person.lastName)) {
+    // Checks for data
+    if (!isValid(person)) {
         res.status(400);
         res.json({ "msg": "Données invalides." });
     } else {
@@ -157,5 +157,19 @@ router.delete('/:id', function (req, res, next) {
         client.close(); // Close connection
     });
 });
+
+
+
+/**
+ * Function used to validate if the field are present and correct.
+ * @param { Person } person the person to validate.
+ * @return true if the person is valid
+ */
+function isValid(person){
+    if (!(this.person.firstName) || !(this.person.lastName || !(this.person.birthDate) || !(this.person.email) || !(this.person.phoneNumbrer))) {
+        return false;
+    }
+    return true;
+}
 
 module.exports = router;

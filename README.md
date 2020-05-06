@@ -14,7 +14,7 @@ La partie "Front-end" du projet sur situe dans le dossier "app".
 
 Les fichiers pour la base de données se situe dans le dossier "db". 
 
-**Nom de la base de donné** : projet-integrateur
+**Nom de la base de données** : projet-integrateur
 
 **Nom de la collection des personnes** : persons
 

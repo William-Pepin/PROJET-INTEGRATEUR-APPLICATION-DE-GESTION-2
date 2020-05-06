@@ -71,6 +71,8 @@ export class PersonService {
     return this.http.put<Person>(this.url + person._id, person, httpHeaders)
   }
 
+
+  
   /**
  * Method to delete a person from the database using the API.
  * 

@@ -1,0 +1,26 @@
+<div>
+    <h1>Add a new task</h1>
+</div>
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-25">
+        <label for="title">Title</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="title" name="title" [(ngModel)]='title' placeholder="Title" required autofocus>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="description">Description</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="description" name="description" [(ngModel)]='description' placeholder="Description" required>
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+    </form>
+  </div>

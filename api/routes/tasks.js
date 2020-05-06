@@ -137,7 +137,7 @@ router.put('/:id', function (req, res, next) {
 
     var task = req.body;
 
-    if (!(task.title) || !(task.description) || !(task.completed)) {
+    if (!(task.title) || !(task.description) || task.completed === undefined ) {
         res.status(400);
         res.json({ "msg": "Données invalides." });
     } else {

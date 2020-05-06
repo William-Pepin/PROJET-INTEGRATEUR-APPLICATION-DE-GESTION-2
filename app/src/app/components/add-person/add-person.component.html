@@ -5,18 +5,42 @@
     <form (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-25">
-        <label for="fname">First Name</label>
+        <label for="fname">* First Name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fname" name="firstName" [(ngModel)]='firstName' placeholder="First Name">
+        <input type="text" id="fname" name="firstName" [(ngModel)]='firstName' placeholder="First Name" required autofocus maxlength="128">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="lname">Last Name</label>
+        <label for="lname">* Last Name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name="lastName" [(ngModel)]='lastName' placeholder="Last name">
+        <input type="text" id="lname" name="lastName" [(ngModel)]='lastName' placeholder="Last name" required maxlength="128">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="birthDate">* Date of birth</label>  
+      </div>
+      <div class="col-75">
+        <input type="date" id="birthDate" name="birthDate" [(ngModel)]='birthDate' required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="email">* Email</label>
+      </div>
+      <div class="col-75">
+        <input type="email" id="email" name="email" [(ngModel)]='email' placeholder="example@domain.com" required maxlength="256">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="phone">* Phone Number</label>
+      </div>
+      <div class="col-75">
+        <input type="tel" id="phone" name="phoneNumber" [(ngModel)]='phoneNumber' placeholder="000-000-0000" required>
       </div>
     </div>
     <div class="row">

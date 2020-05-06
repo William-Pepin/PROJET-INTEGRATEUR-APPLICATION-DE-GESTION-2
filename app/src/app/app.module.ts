@@ -9,14 +9,18 @@ import { AddPersonComponent } from './components/add-person/add-person.component
 
 // Newly added module here
 import { HttpClientModule } from '@angular/common/http'; // Used for services
-import { FormsModule } from '@angular/forms'; // Used for form
+import { FormsModule } from '@angular/forms';
+import { AddTaskComponent } from './components/add-task/add-task.component';
+import { TaskItemComponent } from './components/task-item/task-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    AddPersonComponent
+    AddPersonComponent,
+    AddTaskComponent,
+    TaskItemComponent
   ],
   imports: [
     BrowserModule,

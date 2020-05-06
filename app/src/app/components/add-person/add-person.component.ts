@@ -13,17 +13,28 @@ export class AddPersonComponent implements OnInit {
   // Property for form input.
   lastName: string;
   firstName: string;
+  birthDate: Date;
+  email: string;
+  phoneNumber: string;
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Method used when to button is clicked.
+   * It creates a person and emit it to the component above him
+   */
   onSubmit() {
     // Define person constant
     const person = {
       lastName: this.lastName,
-      fistName: this.firstName
+      firstName: this.firstName,
+      birthDate: new Date(this.birthDate),
+      email: this.email,
+      phoneNumber: this.phoneNumber
     }
 
     // Emit the addPerson emitter with the newly made person.
