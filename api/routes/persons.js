@@ -76,7 +76,7 @@ router.post('/', (req, res, next) => {
     var person = req.body;
 
     // Checks for data
-    if (!isValid(person)) {
+    if (!isPersonValid(person)) {
         res.status(400);
         res.json({ "msg": "Données invalides." });
     } else {
@@ -101,17 +101,47 @@ router.post('/', (req, res, next) => {
     }
 });
 
+/* PUT A TASK TO A PERSON */
+router.put('/task/:id', function(req, res, next) {
+    // HTTP Request Callback Function
 
+    var task = req.body;
+    task.completed = false;
+
+
+    // Checks for data
+    if (!isTaskValid(task)) {
+        res.status(400);
+        res.json({ "msg": "The task needs a title and a description, try again." });
+    } else {
+        MongoClient.connect(url, (err, client) => {
+            // MongoDB Connect Callback Function
+
+            assert.equal(null, err); // Checks if there's no error
+            const db = client.db(dbName);
+
+            // MongoDB Query -> find one person creates ObjectID from string given in the id request parameters
+            db.collection(collection).updateOne({ _id: ObjectID.createFromHexString(req.params.id) }, { $push: { tasks: task } },
+                (err, result) => {
+                    // MongoDB Query Callback Function
+
+                    if (err) return console.log(err)
+                    console.log(result);
+                    res.json(result);
+                });
+            client.close(); // Close connection
+        });
+    }
+});
 
 /* PUT */
-router.put('/:id', function (req, res, next) {
+router.put('/:id', function(req, res, next) {
     // HTTP Request Callback Function
 
     var person = req.body;
 
-
     // Checks for data
-    if (!isValid(person)) {
+    if (!isPersonValid(person)) {
         res.status(400);
         res.json({ "msg": "Données invalides." });
     } else {
@@ -122,7 +152,7 @@ router.put('/:id', function (req, res, next) {
             const db = client.db(dbName);
 
             // MongoDB Query -> find one person creates ObjectID from string given in the id request parameters
-            db.collection(collection).updateOne({_id: ObjectID.createFromHexString(req.params.id)}, {$set : person},
+            db.collection(collection).updateOne({ _id: ObjectID.createFromHexString(req.params.id) }, { $set: person },
                 (err, result) => {
                     // MongoDB Query Callback Function
 
@@ -138,10 +168,10 @@ router.put('/:id', function (req, res, next) {
 
 
 /* DELETE */
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', function(req, res, next) {
     // HTTP Request Callback Function
 
-    MongoClient.connect(url, function (err, client) {
+    MongoClient.connect(url, function(err, client) {
         // MongoDB Connect Callback Function
 
         assert.equal(null, err);
@@ -166,8 +196,15 @@ router.delete('/:id', function (req, res, next) {
  * @param { Person } person the person to validate.
  * @return true if the person is valid
  */
-function isValid(person){
+function isPersonValid(person) {
     if (!(person.firstName) || !(person.lastName || !(person.birthDate) || !(person.email) || !(person.phoneNumbrer))) {
+        return false;
+    }
+    return true;
+}
+
+function isTaskValid(task) {
+    if (!(task.title) || !(task.description)) {
         return false;
     }
     return true;

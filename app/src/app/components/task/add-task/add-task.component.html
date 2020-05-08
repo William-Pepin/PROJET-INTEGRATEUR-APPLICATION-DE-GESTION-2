@@ -8,7 +8,7 @@
                 <label for="title">* Title</label>
             </div>
             <div class="col-75">
-                <input type="text" id="title" name="title" [(ngModel)]='title' placeholder="Title" required autofocus>
+                <input type="text" id="title" name="title" [(ngModel)]='title' placeholder="Title" required autofocus maxlength="256">
             </div>
         </div>
         <div class="row">
@@ -16,7 +16,8 @@
                 <label for="description">* Description</label>
             </div>
             <div class="col-75">
-                <input type="text" id="description" name="description" [(ngModel)]='description' placeholder="Description" required>
+                <textarea type="text" id="description" name="description" [(ngModel)]='description' placeholder="Description" required maxlength="512" rows='5'> 
+                    </textarea>
             </div>
         </div>
         <div class="row">
@@ -24,13 +25,14 @@
                 <label for="person">Assign to</label>
             </div>
             <div class="col-75">
-                <select id='person'>
-          <option value="undefined">None</option>
-          <option *ngFor='let person of persons' value="person._id">{{person.firstName}} {{person.lastName}}. {{person.email}}</option>
-        </select>
+                <select [(ngModel)]='person_id' name='person_id' id='person'>
+                    <option value="undefined">None.</option>
+                    <option *ngFor='let person of persons' value="{{  person._id }}">{{person.firstName}}
+                        {{person.lastName}}. {{person.email}}</option>
+                </select>
             </div>
         </div>
-        <div class="row">
+        <div class=divbtn>
             <input type="submit" value="Submit">
         </div>
     </form>

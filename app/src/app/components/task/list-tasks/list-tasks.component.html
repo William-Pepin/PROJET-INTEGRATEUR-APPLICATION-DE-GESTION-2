@@ -7,7 +7,7 @@
                     <th>Completed</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>Assign</th>
+                    <th>Assign To</th>
                     <th>Delete</th>
                 </tr>
                 <tr *ngFor='let task of tasks'>
@@ -17,10 +17,13 @@
                     <td>{{ task.title}}</td>
                     <td>{{ task.description }}</td>
                     <td>
-                        <button (click)="onDelete(task)" class="del">X</button>
+                        <form action="">
+                            <input type="submit" value="Assign">
+                        </form>
+
                     </td>
                     <td>
-                        <button (click)="onDelete(task)" class="del">X</button>
+                        <button (click)="onDelete(task)" class="del">Delete</button>
                     </td>
                 </tr>
             </table>

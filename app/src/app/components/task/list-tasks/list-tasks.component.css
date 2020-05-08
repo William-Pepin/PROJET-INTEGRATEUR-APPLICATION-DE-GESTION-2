@@ -7,8 +7,6 @@
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-    margin-left: 200px;
-    margin-right: 200px;
 }
 
 .row:after {
@@ -21,16 +19,13 @@
     text-align: center;
     width: 100%;
     margin-top: 6px;
+    overflow-x: auto;
 }
 
 td,
 th {
     border: 1px solid #ddd;
     padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
 }
 
 tr:hover {
@@ -44,6 +39,10 @@ th {
     background-color: #4CAF50;
     color: white;
     font-weight: unset;
+}
+
+th:hover {
+    background-color: #45a049;
 }
 
 .tasks-list {
@@ -74,4 +73,46 @@ h1 {
         margin-left: 2px;
         margin-right: 2px;
     }
+}
+
+select {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #FFc107;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+
+input[type=submit]:hover {
+    background-color: #edb100;
+}
+
+.del {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+
+.del:hover {
+    background-color: #bc1415;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
 }

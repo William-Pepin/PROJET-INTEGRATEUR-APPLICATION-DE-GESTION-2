@@ -11,6 +11,7 @@ export class ListTasksComponent implements OnInit {
   @Input() tasks: Task[];
   @Input() persons: Person[];
 
+  person_id:string;
 
   constructor() { }
 

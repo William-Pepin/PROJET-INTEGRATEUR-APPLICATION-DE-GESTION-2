@@ -106,7 +106,7 @@ router.post('/', (req, res, next) => {
     // Checks for data
     if (!(task.title) || !(task.description)) {
         res.status(400);
-        res.json({ "msg": "Données invalides." });
+        res.json({ "msg": "The task needs a title and a description, try again." });
     } else {
         task.completed = false;
 
@@ -132,14 +132,14 @@ router.post('/', (req, res, next) => {
 });
 
 /* PUT */
-router.put('/:id', function (req, res, next) {
+router.put('/:id', function(req, res, next) {
     // HTTP Request Callback Function
 
     var task = req.body;
 
-    if (!(task.title) || !(task.description) || task.completed === undefined ) {
+    if (!(task.title) || !(task.description) || task.completed === undefined) {
         res.status(400);
-        res.json({ "msg": "Données invalides." });
+        res.json({ "msg": "The task needs a title and a description, try again." });
     } else {
         MongoClient.connect(url, (err, client) => {
             // MongoDB Connect Callback Function
@@ -162,10 +162,10 @@ router.put('/:id', function (req, res, next) {
 });
 
 /* DELETE */
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', function(req, res, next) {
     // HTTP Request Callback Function
 
-    MongoClient.connect(url, function (err, client) {
+    MongoClient.connect(url, function(err, client) {
         // MongoDB Connect Callback Function
 
         assert.equal(null, err);

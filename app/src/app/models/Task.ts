@@ -3,4 +3,5 @@ export class Task {
     title:string;
     description:string;
     completed:boolean;
+    person_id?:string;
 }

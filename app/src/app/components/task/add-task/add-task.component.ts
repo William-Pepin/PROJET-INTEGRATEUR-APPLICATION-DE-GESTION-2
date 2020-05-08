@@ -1,7 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { PersonService } from 'src/app/services/person.service';
 import { Person } from 'src/app/models/Person';
 
+/**
+ * Main add Task Component
+ */
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
@@ -31,12 +33,12 @@ export class AddTaskComponent implements OnInit {
 
     const task = {
       title: this.title,
-      person_id: this.person_id,
       description: this.description,
-      completed: this.completed
+      completed: this.completed,
+      person_id: this.person_id
     }
 
     this.addTask.emit(task);
   }
-
 }
+

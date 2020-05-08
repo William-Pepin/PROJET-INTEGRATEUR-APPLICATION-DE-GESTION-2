@@ -1,15 +1,16 @@
 // Adding EventEmitter and Output to Emit back to the service.
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 import { PersonService } from 'src/app/services/person.service';
 import { Person } from 'src/app/models/Person';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
+
 
 @Component({
   selector: 'app-add-person',
   templateUrl: './add-person.component.html',
   styleUrls: ['./add-person.component.css']
 })
+
 export class AddPersonComponent implements OnInit {
   // EventEmitter as an ouput
   @Output() addPerson: EventEmitter<any> = new EventEmitter();
@@ -44,4 +45,5 @@ export class AddPersonComponent implements OnInit {
     this.personService.addPerson(this.person).subscribe();
   }
 
+  
 }

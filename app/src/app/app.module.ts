@@ -11,6 +11,7 @@ import { ListPersonsComponent } from './components/person/list-persons/list-pers
 import { ListPersonItemComponent } from 'src/app/components/person/list-person-item/list-person-item.component';
 
 
+
 // Newly added module here
 import { HttpClientModule } from '@angular/common/http'; // Used for services
 import { FormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ import { AboutComponent } from './components/pages/about/about.component';
 import { MainPersonsComponent } from './components/person/main-persons/main-persons.component';
 import { MainTasksComponent } from './components/task/main-tasks/main-tasks.component';
 import {ListTasksComponent } from './components/task/list-tasks/list-tasks.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {ListTasksComponent } from './components/task/list-tasks/list-tasks.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
