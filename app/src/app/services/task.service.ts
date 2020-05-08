@@ -20,7 +20,7 @@ const httpHeaders = {
 /**
  * Service for the tasks. Used to call the API.
  */
-export class taskService {
+export class TaskService {
   // Url
   private url: string = "http://localhost:3000/tasks/";
 

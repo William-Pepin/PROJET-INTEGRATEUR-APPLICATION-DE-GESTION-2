@@ -1,0 +1,29 @@
+<h1>Unnassigned Tasks</h1>
+<div class='container'>
+    <div class='row'>
+        <div class='col-100'>
+            <table class='tasks-list'>
+                <tr>
+                    <th>Completed</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Assign</th>
+                    <th>Delete</th>
+                </tr>
+                <tr *ngFor='let task of tasks'>
+                    <td>
+                        <input (change)="onToggle(task)" type="checkbox">
+                    </td>
+                    <td>{{ task.title}}</td>
+                    <td>{{ task.description }}</td>
+                    <td>
+                        <button (click)="onDelete(task)" class="del">X</button>
+                    </td>
+                    <td>
+                        <button (click)="onDelete(task)" class="del">X</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

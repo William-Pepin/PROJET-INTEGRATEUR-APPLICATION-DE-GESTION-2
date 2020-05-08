@@ -1,6 +1,10 @@
 // Adding EventEmitter and Output to Emit back to the service.
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
+import { PersonService } from 'src/app/services/person.service';
+import { Person } from 'src/app/models/Person';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
+
 @Component({
   selector: 'app-add-person',
   templateUrl: './add-person.component.html',
@@ -16,9 +20,10 @@ export class AddPersonComponent implements OnInit {
   birthDate: Date;
   email: string;
   phoneNumber: string;
+  person: Person;
 
 
-  constructor() { }
+  constructor(private personService:PersonService) { }
 
   ngOnInit(): void {
   }
@@ -28,17 +33,15 @@ export class AddPersonComponent implements OnInit {
    * It creates a person and emit it to the component above him
    */
   onSubmit() {
+    this.person = new Person();
     // Define person constant
-    const person = {
-      lastName: this.lastName,
-      firstName: this.firstName,
-      birthDate: new Date(this.birthDate),
-      email: this.email,
-      phoneNumber: this.phoneNumber
-    }
-
+    this.person.firstName = this.firstName;
+    this.person.lastName = this.lastName;
+    this.person.birthDate = this.birthDate;
+    this.person.email = this.email;
+    this.person.phoneNumber = this.phoneNumber
     // Emit the addPerson emitter with the newly made person.
-    this.addPerson.emit(person);
+    this.personService.addPerson(this.person).subscribe();
   }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { PersonService } from 'src/app/services/person.service';
+import { Person } from 'src/app/models/Person';
 
 @Component({
   selector: 'app-add-task',
@@ -6,6 +8,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
+  @Input() persons:Person[];
+
   @Output() addTask: EventEmitter<any> = new EventEmitter();
 
   title: string;

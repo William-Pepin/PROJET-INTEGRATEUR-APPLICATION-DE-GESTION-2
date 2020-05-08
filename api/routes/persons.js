@@ -109,6 +109,7 @@ router.put('/:id', function (req, res, next) {
 
     var person = req.body;
 
+
     // Checks for data
     if (!isValid(person)) {
         res.status(400);
@@ -166,7 +167,7 @@ router.delete('/:id', function (req, res, next) {
  * @return true if the person is valid
  */
 function isValid(person){
-    if (!(this.person.firstName) || !(this.person.lastName || !(this.person.birthDate) || !(this.person.email) || !(this.person.phoneNumbrer))) {
+    if (!(person.firstName) || !(person.lastName || !(person.birthDate) || !(person.email) || !(person.phoneNumbrer))) {
         return false;
     }
     return true;

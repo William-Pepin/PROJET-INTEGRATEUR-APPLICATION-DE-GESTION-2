@@ -1,8 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
-const routes: Routes = [];
+import { AboutComponent } from 'src/app/components/pages/about/about.component';
+import { DashboardComponent } from 'src/app/components/pages/dashboard/dashboard.component';
+import { MainPersonsComponent } from 'src/app/components/person/main-persons/main-persons.component';
+import { MainTasksComponent } from 'src/app/components/task/main-tasks/main-tasks.component';
+;
+// Routes
+const routes: Routes = [
+  { path: '', component: DashboardComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'persons', component: MainPersonsComponent },
+  { path: 'tasks', component: MainTasksComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
