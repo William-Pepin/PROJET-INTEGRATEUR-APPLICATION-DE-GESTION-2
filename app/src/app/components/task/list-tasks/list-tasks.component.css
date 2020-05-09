@@ -70,10 +70,6 @@ h1 {
         width: 100%;
         margin-top: 0;
     }
-    .container {
-        margin-left: 2px;
-        margin-right: 2px;
-    }
 }
 
 select {
@@ -84,7 +80,7 @@ select {
     resize: vertical;
 }
 
-input[type=submit] {
+.assign {
     background-color: #FFc107;
     color: white;
     padding: 12px 20px;
@@ -94,7 +90,7 @@ input[type=submit] {
     float: left;
 }
 
-input[type=submit]:hover {
+.assign:hover {
     background-color: #edb100;
 }
 

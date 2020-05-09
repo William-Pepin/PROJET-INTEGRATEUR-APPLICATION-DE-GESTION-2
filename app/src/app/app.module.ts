@@ -25,6 +25,7 @@ import {ListTasksComponent } from './components/task/list-tasks/list-tasks.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmContentComponent } from './components/modals/modal-confirm-content/modal-confirm-content.component';
 import { ModalDeleteContentComponent } from './components/modals/modal-delete-content/modal-delete-content.component';
+import { ModalAssignContentComponent } from './components/modals/modal-assign-content/modal-assign-content.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ModalDeleteContentComponent } from './components/modals/modal-delete-co
     MainTasksComponent,
     ListTasksComponent,
     ModalConfirmContentComponent,
-    ModalDeleteContentComponent
+    ModalDeleteContentComponent,
+    ModalAssignContentComponent
 
   ],
   imports: [

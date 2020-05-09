@@ -14,16 +14,13 @@
                     <td>
                         <input (change)="onToggle(task)" type="checkbox">
                     </td>
-                    <td>{{ task.title}}</td>
+                    <td>{{ task.title }}</td>
                     <td>{{ task.description }}</td>
                     <td>
-                        <form action="">
-                            <input type="submit" value="Assign">
-                        </form>
-
+                        <button (click)="onAssign(task)" class="assign" value="Assign ">Assign</button>
                     </td>
                     <td>
-                        <button (click)="onDelete(task)" class="del">Delete</button>
+                        <button (click)="onDelete(task) " class="del">Delete</button>
                     </td>
                 </tr>
             </table>

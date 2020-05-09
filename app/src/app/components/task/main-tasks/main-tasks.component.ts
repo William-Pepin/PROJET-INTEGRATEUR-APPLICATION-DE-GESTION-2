@@ -4,9 +4,12 @@ import { Task } from 'src/app/models/Task';
 import { Person } from 'src/app/models/Person';
 import { PersonService } from 'src/app/services/person.service';
 import { TaskService } from 'src/app/services/task.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmContentComponent } from '../../modals/modal-confirm-content/modal-confirm-content.component';
 import { ModalDeleteContentComponent } from '../../modals/modal-delete-content/modal-delete-content.component';
+import { ModalAssignContentComponent } from '../../modals/modal-assign-content/modal-assign-content.component';
 
 
 
@@ -25,8 +28,6 @@ export class MainTasksComponent implements OnInit {
   // Unassigned Task
   tasks: Task[];
   persons: Person[];
-  modalRef: NgbModal;
-
 
 
 
@@ -66,8 +67,8 @@ export class MainTasksComponent implements OnInit {
           // Push to screen.
           this.openModal(ModalConfirmContentComponent, msg);
 
-          // Push to tasks array
-          this.tasks.push(task);
+          // Push to tasks array at first position
+          this.tasks.unshift(task);
 
 
 
@@ -91,8 +92,6 @@ export class MainTasksComponent implements OnInit {
           var msg = 'Task sucessfully added.';
           this.openModal(ModalConfirmContentComponent, msg);
 
-
-
         }, error => {
           // Error
           var msg;
@@ -106,6 +105,62 @@ export class MainTasksComponent implements OnInit {
     }
   }
 
+
+
+  /**
+   * 
+   * @param task 
+   */
+  assignTask(task: Task) {
+
+    const modalRef = this.modalService.open(ModalAssignContentComponent);
+    modalRef.componentInstance.task = task;
+    modalRef.componentInstance.persons = this.persons;
+
+
+    modalRef.result.then(result => {
+
+
+      if (result) {
+        if (task.person_id === undefined || task.person_id === 'undefined') {
+          // If no choice was made.
+          return;
+        }
+        var person_id = task.person_id;
+        delete task.person_id;
+
+        this.personService.addPersonTask(task, person_id).subscribe
+          (result => {
+            // Success to assign the task
+            this.taskService.deleteTask(task._id).subscribe(result => {
+
+              // Success to delete the task
+              var msg = 'Task sucessfully assigned.';
+              this.openModal(ModalConfirmContentComponent, msg);
+
+              // Return all tasks that doesn't have the ID of the current task (iteration for each task as t)
+              this.tasks = this.tasks.filter(t => t._id !== task._id);
+
+
+            }, error => {
+              var msg = 'Task sucessfully assigned, but failed to delete in the unnassigned tasks.';
+              this.openModal(ModalConfirmContentComponent, msg);
+            })
+          }, error => {
+            // Error
+            var msg;
+            if (error.error.msg !== undefined) {
+              msg = error.error.msg;
+            } else {
+              msg = "Error assigning the task, please try again.";
+            }
+            this.openModal(ModalConfirmContentComponent, msg);
+          })
+
+      }
+
+    })
+  }
 
 
 

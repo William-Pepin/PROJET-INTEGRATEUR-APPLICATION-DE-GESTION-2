@@ -15,6 +15,7 @@ export class ListTasksComponent implements OnInit {
 
   // Output
   @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
+  @Output() assignTask: EventEmitter<Task> = new EventEmitter();
 
   // Fields
   person_id:string;
@@ -26,6 +27,14 @@ export class ListTasksComponent implements OnInit {
 
   onToggle(task){
 
+  }
+
+  /**
+   * Method that emits to the main-tasks component to assign a person to the specified task
+   * @param task Task to assign
+   */
+  onAssign(task:Task){
+    this.assignTask.emit(task);
   }
 
   /**

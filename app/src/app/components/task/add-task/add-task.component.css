@@ -74,10 +74,6 @@ input[type=submit]:hover {
         width: 100%;
         margin-top: 0;
     }
-    .container {
-        margin-left: 2px;
-        margin-right: 2px;
-    }
 }
 
 input[type=submit] {
