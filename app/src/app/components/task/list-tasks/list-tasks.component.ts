@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from 'src/app/models/Task';
 import { Person } from 'src/app/models/Person';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-list-tasks',
@@ -8,12 +9,17 @@ import { Person } from 'src/app/models/Person';
   styleUrls: ['./list-tasks.component.css']
 })
 export class ListTasksComponent implements OnInit {
+  // Input
   @Input() tasks: Task[];
   @Input() persons: Person[];
 
+  // Output
+  @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
+
+  // Fields
   person_id:string;
 
-  constructor() { }
+  constructor(private taskService:TaskService) { }
 
   ngOnInit(): void {
   }
@@ -22,8 +28,12 @@ export class ListTasksComponent implements OnInit {
 
   }
 
-  onDelete(task){
-    
+  /**
+   * Method that emits to the main-tasks component to delete the specified task
+   * @param task Task to delete
+   */
+  onDelete(task:Task){
+    this.deleteTask.emit(task);
   }
 
   // Method to set dynamic classes

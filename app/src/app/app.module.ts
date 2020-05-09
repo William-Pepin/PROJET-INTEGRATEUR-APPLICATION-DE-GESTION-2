@@ -23,6 +23,8 @@ import { MainPersonsComponent } from './components/person/main-persons/main-pers
 import { MainTasksComponent } from './components/task/main-tasks/main-tasks.component';
 import {ListTasksComponent } from './components/task/list-tasks/list-tasks.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmContentComponent } from './components/modals/modal-confirm-content/modal-confirm-content.component';
+import { ModalDeleteContentComponent } from './components/modals/modal-delete-content/modal-delete-content.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AboutComponent,
     MainPersonsComponent,
     MainTasksComponent,
-    ListTasksComponent
+    ListTasksComponent,
+    ModalConfirmContentComponent,
+    ModalDeleteContentComponent
 
   ],
   imports: [
@@ -49,6 +53,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalConfirmContentComponent]
 })
 export class AppModule { }

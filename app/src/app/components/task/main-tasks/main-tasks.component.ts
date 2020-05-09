@@ -5,6 +5,8 @@ import { Person } from 'src/app/models/Person';
 import { PersonService } from 'src/app/services/person.service';
 import { TaskService } from 'src/app/services/task.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmContentComponent } from '../../modals/modal-confirm-content/modal-confirm-content.component';
+import { ModalDeleteContentComponent } from '../../modals/modal-delete-content/modal-delete-content.component';
 
 
 
@@ -15,11 +17,17 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MainTasksComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private personService: PersonService, private modalService: NgbModal) { }
+  constructor(
+    private taskService: TaskService,
+    private personService: PersonService,
+    private modalService: NgbModal) { }
 
   // Unassigned Task
   tasks: Task[];
   persons: Person[];
+  modalRef: NgbModal;
+
+
 
 
   ngOnInit(): void {
@@ -37,6 +45,14 @@ export class MainTasksComponent implements OnInit {
 
   }
 
+
+
+  /**
+   * Method that push a task to the database using the API
+   * And show a popup message to the user.
+   * Called using the EventEmitter from the add-task component
+   * @param task task to add
+   */
   addTask(task: Task) {
     var person_id = task.person_id;
     delete task.person_id;
@@ -48,7 +64,11 @@ export class MainTasksComponent implements OnInit {
           // Success
           var msg = "Task successfully added.";
           // Push to screen.
-          this.sendModal(msg);
+          this.openModal(ModalConfirmContentComponent, msg);
+
+          // Push to tasks array
+          this.tasks.push(task);
+
 
 
         }, error => {
@@ -59,16 +79,18 @@ export class MainTasksComponent implements OnInit {
           } else {
             msg = "Error adding the task, please try again.";
           }
-          this.sendModal(msg);
+          this.openModal(ModalConfirmContentComponent, msg);
         })
     }
+
     // Push task to a person
     else {
       this.personService.addPersonTask(task, person_id).subscribe
         (result => {
           // Success
           var msg = 'Task sucessfully added.';
-          this.sendModal(msg);
+          this.openModal(ModalConfirmContentComponent, msg);
+
 
 
         }, error => {
@@ -79,38 +101,54 @@ export class MainTasksComponent implements OnInit {
           } else {
             msg = "Error adding the task, please try again.";
           }
-          this.sendModal(msg);
+          this.openModal(ModalConfirmContentComponent, msg);
         })
     }
   }
-  sendModal(msg: string) {
-    // Push to screen.
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.msg = msg;
+
+
+
+
+  /**
+   * Method to delete a task from the database.
+   * add a popup to confirm the deletion.
+   * @param task task to delete
+   */
+  deleteTask(task: Task) {
+
+    var modalRef = this.openModal(ModalDeleteContentComponent, task);
+
+    modalRef.result.then(result => {
+      if (result) {
+
+
+        // Confirm you want to delete the task
+        this.taskService.deleteTask(task._id).subscribe(result => {
+
+          // Success
+          var msg = "Task successfully removed.";
+          // Push to screen.
+          this.openModal(ModalConfirmContentComponent, msg);
+
+          // Return all tasks that doesn't have the ID of the current task (iteration for each task as t)
+          this.tasks = this.tasks.filter(t => t._id !== task._id);
+
+        }, error => {
+
+          // Error
+          var msg = "Error removing the task, please try again.";
+          this.openModal(ModalConfirmContentComponent, msg);
+        });
+      }
+    });
   }
-}
 
 
-/**
- * 
- * 
- */
-@Component({
-  selector: 'ngbd-modal-content',
-  template: `
-    <div class="modal-header">
-      <h4 class="modal-title">{{ msg }}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-footer">
-      <button type="button" ngbAutofocus class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-    </div>
-  `
-})
-export class NgbdModalContent {
-  @Input() msg;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  openModal(ModalConfirmContentComponent, object?) {
+    const modalRef = this.modalService.open(ModalConfirmContentComponent);
+    modalRef.componentInstance.object = object;
+    return modalRef;
+
+  }
 }

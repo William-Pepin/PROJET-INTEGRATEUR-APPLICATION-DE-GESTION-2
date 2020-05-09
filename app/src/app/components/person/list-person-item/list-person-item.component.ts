@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Person } from 'src/app/models/Person';
 import { Task } from 'src/app/models/Task';
 import { PersonService } from 'src/app/services/person.service';
+import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 @Component({
   selector: 'app-list-person-item',
