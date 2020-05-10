@@ -26,6 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmContentComponent } from './components/modals/modal-confirm-content/modal-confirm-content.component';
 import { ModalDeleteContentComponent } from './components/modals/modal-delete-content/modal-delete-content.component';
 import { ModalAssignContentComponent } from './components/modals/modal-assign-content/modal-assign-content.component';
+import { ModalModifyPersonContentComponent } from './components/modals/modal-modify-person-content/modal-modify-person-content.component';
+import { ModalDeletePersonContentComponent } from './components/modals/modal-delete-person-content/modal-delete-person-content.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ModalAssignContentComponent } from './components/modals/modal-assign-co
     ListTasksComponent,
     ModalConfirmContentComponent,
     ModalDeleteContentComponent,
-    ModalAssignContentComponent
+    ModalAssignContentComponent,
+    ModalModifyPersonContentComponent,
+    ModalDeletePersonContentComponent
 
   ],
   imports: [

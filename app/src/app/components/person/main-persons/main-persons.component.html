@@ -1,2 +1,6 @@
-<app-list-persons [persons]='persons'></app-list-persons>
+<app-list-persons 
+(modifyPerson)='modifyPerson($event)'
+(deletePerson)='deletePerson($event)'
+(assignPersonToTask)='assignTaskToPerson($event)'
+[persons]='persons'></app-list-persons>
 <app-add-person (addPerson)='addPerson($event)'></app-add-person>

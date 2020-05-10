@@ -139,6 +139,13 @@ router.put('/:id', function(req, res, next) {
     // HTTP Request Callback Function
 
     var person = req.body;
+    if(req.params.id === person._id){
+        delete person._id;
+    }else{
+        res.status(400);
+        res.json({'msg': 'Error adding the person, try again.'});
+    }
+
     var validMessage = isPersonValid(person);
     // Checks for data
     if (validMessage.length > 20) {

@@ -9,10 +9,10 @@ import { Person } from 'src/app/models/Person';
 import { PersonService } from 'src/app/services/person.service';
 
 // Modals
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ThrowStmt } from '@angular/compiler';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModifyPersonContentComponent } from '../../modals/modal-modify-person-content/modal-modify-person-content.component'
 import { ModalConfirmContentComponent } from '../../modals/modal-confirm-content/modal-confirm-content.component';
-
+import { ModalDeletePersonContentComponent } from '../../modals/modal-delete-person-content/modal-delete-person-content.component'
 // Component Decorator
 @Component({
   selector: 'app-main-persons',
@@ -38,7 +38,7 @@ export class MainPersonsComponent implements OnInit {
   ) { }
 
   // Fields
-  persons:Person[];
+  persons: Person[];
 
   ngOnInit(): void {
 
@@ -55,11 +55,11 @@ export class MainPersonsComponent implements OnInit {
    * using the PersonService
    * @param person the person to add
    */
-  addPerson(person){
+  addPerson(person: Person) {
     var validMessage = this.isPersonValid(person)
 
     // If invalid
-    if(validMessage.length > 20){
+    if (validMessage.length > 20) {
       const modalRef = this.modalService.open(ModalConfirmContentComponent);
       modalRef.componentInstance.object = validMessage;
     } else {
@@ -70,7 +70,9 @@ export class MainPersonsComponent implements OnInit {
         var msg = 'Person successfully added.';
         const modalRef = this.modalService.open(ModalConfirmContentComponent);
         modalRef.componentInstance.object = msg;
-  
+
+        this.persons.unshift(person);
+
       }, error => {
         // Error
         var msg;
@@ -81,37 +83,125 @@ export class MainPersonsComponent implements OnInit {
         }
         const modalRef = this.modalService.open(ModalConfirmContentComponent);
         modalRef.componentInstance.object = msg;
-  
+
       });
     }
   }
 
+
   /**
- * Function used to validate if the field are present and correct.
- * @param { Person } person the person to validate.
- * @return 'A person requires a '. compare the total length > 20
- */
- isPersonValid(person) {
-  var returnMessage = 'A person requires a ';
-  if (!(person.firstName)) {
+   * Used to modify a person information
+   * @param { Person } person : the person to modify
+   */
+  modifyPerson(person: Person) {
+
+    // Show modify form in modal
+    const modalRef = this.modalService.open(ModalModifyPersonContentComponent);
+    modalRef.componentInstance.person = person;
+
+
+
+    modalRef.result.then(result => {
+      // if submitted
+      if (result) {
+
+        var validMessage = this.isPersonValid(person)
+
+        // If invalid
+        if (validMessage.length > 20) {
+          const modalRef = this.modalService.open(ModalConfirmContentComponent);
+          modalRef.componentInstance.object = validMessage;
+
+        } else {
+          this.personService.modifyPerson(person).subscribe(result => {
+            // Success to modify
+
+            var msg = 'Person successfully modified.';
+            const modalConf = this.modalService.open(ModalConfirmContentComponent);
+            modalConf.componentInstance.object = msg;
+
+          }, error => {
+            // Error to modify
+            var msg;
+            if (error.error.msg !== undefined) {
+              msg = error.error.msg;
+            } else {
+              msg = "Error modifying the person, please try again.";
+            }
+            const modalConf = this.modalService.open(ModalConfirmContentComponent, msg);
+            modalConf.componentInstance.object = msg;
+          })
+        }
+      }
+    });
+  }
+
+
+  /**
+   * Method used to delete a person
+   * @param person the person to delete
+   */
+  deletePerson(person: Person){
+
+    // Confirmation to delete
+    const modalRef = this.modalService.open(ModalDeletePersonContentComponent);
+    modalRef.componentInstance.person = person;
+
+    modalRef.result.then(result => {
+
+      // If confirmed
+      this.personService.deletePerson(person._id).subscribe(result => {
+
+        // Success
+        var msg = 'Person successfully removed.';
+        const modalConf = this.modalService.open(ModalConfirmContentComponent);
+        modalConf.componentInstance.object = msg;
+
+        // Update persons array
+        this.persons = this.persons.filter(p => p._id != person._id);
+
+      }, error => {
+        
+        // Error
+        var msg = 'Error removing the person, please try again.';
+        const modalConf = this.modalService.open(ModalConfirmContentComponent);
+        modalConf.componentInstance.object = msg;
+      })
+    })
+
+  }
+
+
+  assignTaskToPerson(person: Person){
+
+  }
+
+  /**
+  * Function used to validate if the field are present and correct.
+  * @param { Person } person the person to validate.
+  * @return 'A person requires a '. compare the total length > 20
+  */
+  isPersonValid(person: Person) {
+    var returnMessage = 'A person requires a ';
+    if (!(person.firstName)) {
       returnMessage += 'first name,'
-  }
-  if (!(person.lastName)) {
+    }
+    if (!(person.lastName)) {
       returnMessage += ' last name,'
-  }
-  if (!(person.birthDate)) {
+    }
+    if (!(person.birthDate)) {
       returnMessage += ' date of birth,'
-  }
-  if (!(person.email)) {
+    }
+    if (!(person.email)) {
       returnMessage += ' email,'
-  }
-  if (!(person.phoneNumber)) {
+    }
+    if (!(person.phoneNumber)) {
       returnMessage += ' phone number.'
-  }
-  if (returnMessage.endsWith(',')) {
+    }
+    if (returnMessage.endsWith(',')) {
       returnMessage = returnMessage.slice(0, -1) + '.';
+    }
+    return returnMessage;
   }
-  return returnMessage;
-}
 
 }

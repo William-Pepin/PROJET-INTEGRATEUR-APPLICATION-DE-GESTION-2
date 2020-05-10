@@ -1,0 +1,13 @@
+.person-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+@media screen and (max-width: 1366px) {
+    .person-lists {
+        grid-template-columns: 1fr;
+    }
+}
+h1 {
+    text-align: center;
+}

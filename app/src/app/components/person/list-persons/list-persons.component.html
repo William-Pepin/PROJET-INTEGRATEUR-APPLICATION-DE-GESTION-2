@@ -1,3 +1,11 @@
-<app-list-person-item
-*ngFor='let person of persons' [person]='person'>
-</app-list-person-item>
+<div class='title'>
+    <h1>Persons list</h1>
+</div>
+<div class=person-lists>
+    <app-list-person-item
+    (modifyPerson)='onModify($event)'
+    (deletePerson)='onDelete($event)'
+    (assignTaskToPerson)='onAssign($event)'
+    *ngFor='let person of persons' [person]='person'>
+    </app-list-person-item>
+</div>

@@ -87,6 +87,8 @@ export class MainTasksComponent implements OnInit {
             // Push to screen.
             this.openModal(ModalConfirmContentComponent, msg);
 
+            // Adding the client task._id
+            task._id = result.insertedId;
             // Push to tasks array at first position
             this.tasks.unshift(task);
 
@@ -204,7 +206,7 @@ export class MainTasksComponent implements OnInit {
       if (result) {
 
 
-        // Confirm you want to delete the task
+        // if confirmed
         this.taskService.deleteTask(task._id).subscribe(result => {
 
           // Success

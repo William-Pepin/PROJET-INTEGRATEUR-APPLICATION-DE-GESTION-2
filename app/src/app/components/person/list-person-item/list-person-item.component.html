@@ -1,15 +1,31 @@
 <!-- Person list-item -->
 <div class='wrapper'>
-    <div class='name'>
-        <h3>{{ person.firstName }} {{ person.lastName }}</h3>
+
+    <div class='header'>
+
+        <div class='name'>
+            <h3>{{ person.firstName }} {{ person.lastName }}</h3>
+        </div>
+        <div class='info'>
+            <h5>Informations</h5>
+            <p>Age : {{ age }}</p>
+            <p>Email : {{ person.email }}</p>
+            <p>Phone : {{ person.phoneNumber }}</p>
+        </div>
+        <div class='manage'>
+            
+            <button class='btn btn-success' (click)='onAssign(person)'>Assign</button>
+            <button class='btn btn-warning' (click)='onModify(person)'>Modify</button>
+            <button class='btn btn-danger' (click)='onDelete(person)'>Delete</button>
+        </div>
+
     </div>
 
+    <div class='tasks'>
+        <h5>Tasks</h5>
+        <app-task-item *ngFor='let task of person.tasks' [task]='task'>
 
-
-    <div class='info'>
-        <p>Age : {{ age }}</p>
-        <p>Email : {{ person.email }}</p>
-        <p>Phone : {{ person.phoneNumber }}</p>
+        </app-task-item>
     </div>
 
 </div>

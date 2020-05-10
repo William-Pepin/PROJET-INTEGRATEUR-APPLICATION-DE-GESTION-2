@@ -24,6 +24,10 @@ export class ListPersonsComponent implements OnInit {
   // Input
   @Input() persons:Person[];
 
+  @Output() deletePerson: EventEmitter<Person> = new  EventEmitter();
+  @Output() modifyPerson: EventEmitter<Person> = new EventEmitter();
+  @Output() assignTaskToPerson: EventEmitter<Person> = new EventEmitter();
+
   // Output
   
   // Fields
@@ -40,6 +44,16 @@ export class ListPersonsComponent implements OnInit {
   ngOnInit(): void {
     this.now = new Date();
   }
-
+  
+  onModify(person){
+    this.modifyPerson.emit(person);
+  }
+  
+  onAssign(person){
+    this.assignTaskToPerson.emit(person);
+  }
+  onDelete(person){
+    this.deletePerson.emit(person);
+  }
 
 }

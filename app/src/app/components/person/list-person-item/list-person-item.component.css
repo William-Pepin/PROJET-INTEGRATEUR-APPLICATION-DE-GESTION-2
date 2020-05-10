@@ -1,0 +1,58 @@
+.btn {
+    color: white;
+    margin: 1%
+}
+
+.wrapper {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 300px;
+    grid-template-areas:
+        "header"
+        "tasks";
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    align-self: center;
+    margin: 2%;
+    overflow: hidden;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    grid-template-areas:
+        'name info manage'
+    ;
+    max-width: 100%;
+    grid-gap : 1em;
+}
+
+.name {
+    grid-area: name;
+    text-align: left;
+    max-width: 2fr;
+}
+
+.tasks {
+    display: grid;
+    grid-area: tasks;
+    overflow-y: scroll;
+
+}
+
+.info {
+    grid-area: info;
+    max-width: 4fr;
+}
+
+.manage {
+    grid-area: manage;
+    align-self: right;
+    max-width: 1fr;
+}
+
+p {
+    text-align: left;
+}

@@ -1,12 +1,4 @@
-.del {
-    background: #ff0000;
-    color: #fff;
-    border: none;
-    padding: 5px 9px;
-    border-radius: 50%;
-    cursor: pointer;
-    float: right;
-}
+
 
 .todo {
     background: #f4f4f4;
@@ -16,4 +8,9 @@
 
 .is-completed {
 text-decoration: line-through;
+}
+
+.wrapper{
+    display: grid;
+
 }
