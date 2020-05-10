@@ -104,9 +104,11 @@ router.post('/', (req, res, next) => {
     var task = req.body;
 
     // Checks for data
-    if (!(task.title) || !(task.description)) {
+    var validMessage = isTaskValid(task);
+    if (validMessage.length > 18) {
         res.status(400);
-        res.json({ "msg": "The task needs a title and a description, try again." });
+        res.json({ "msg": validMessage });
+
     } else {
         task.completed = false;
 
@@ -137,9 +139,11 @@ router.put('/:id', function(req, res, next) {
 
     var task = req.body;
 
-    if (!(task.title) || !(task.description) || task.completed === undefined) {
+    var validMessage = isTaskValid(task);
+    if (validMessage.length > 18) {
         res.status(400);
-        res.json({ "msg": "The task needs a title and a description, try again." });
+        res.json({ "msg": validMessage });
+
     } else {
         MongoClient.connect(url, (err, client) => {
             // MongoDB Connect Callback Function
@@ -183,4 +187,23 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+/**
+ * Used to validate a task
+ * 
+ * @param {*} task the task to validate
+ */
+function isTaskValid(task) {
+    var returnMessage = 'A task requires a ';
+    if (!(task.title)) {
+        returnMessage += 'title,';
+    }
+    if (!(task.description)) {
+        returnMessage += ' description.';
+    }
+    if (returnMessage.endsWith(',')) {
+        returnMessage = returnMessage.slice(0, -1) + '.';
+
+    }
+    return returnMessage;
+}
 module.exports = router;

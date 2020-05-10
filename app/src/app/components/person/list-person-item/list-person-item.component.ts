@@ -20,6 +20,8 @@ export class ListPersonItemComponent implements OnInit {
 
   constructor(private personService:PersonService) { }
 
+  age:number;
+
   ngOnInit(): void {
   }
 

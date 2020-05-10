@@ -1,2 +1,2 @@
-<app-list-persons></app-list-persons>
-<app-add-person></app-add-person>
+<app-list-persons [persons]='persons'></app-list-persons>
+<app-add-person (addPerson)='addPerson($event)'></app-add-person>

@@ -1,7 +1,7 @@
 // Adding EventEmitter and Output to Emit back to the service.
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
-import { PersonService } from 'src/app/services/person.service';
+// Models
 import { Person } from 'src/app/models/Person';
 
 
@@ -12,7 +12,7 @@ import { Person } from 'src/app/models/Person';
 })
 
 export class AddPersonComponent implements OnInit {
-  // EventEmitter as an ouput
+  // EventEmitter as an output
   @Output() addPerson: EventEmitter<any> = new EventEmitter();
 
   // Property for form input.
@@ -24,7 +24,7 @@ export class AddPersonComponent implements OnInit {
   person: Person;
 
 
-  constructor(private personService:PersonService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -36,14 +36,14 @@ export class AddPersonComponent implements OnInit {
   onSubmit() {
     this.person = new Person();
     // Define person constant
+    
     this.person.firstName = this.firstName;
     this.person.lastName = this.lastName;
     this.person.birthDate = this.birthDate;
     this.person.email = this.email;
     this.person.phoneNumber = this.phoneNumber
     // Emit the addPerson emitter with the newly made person.
-    this.personService.addPerson(this.person).subscribe();
+    this.addPerson.emit(this.person);
   }
-
-  
+    
 }

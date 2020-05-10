@@ -74,11 +74,11 @@ router.post('/', (req, res, next) => {
 
     // retrieve person
     var person = req.body;
-
+    var validMessage = isPersonValid(person);
     // Checks for data
-    if (!isPersonValid(person)) {
+    if (validMessage.length > 20) {
         res.status(400);
-        res.json({ "msg": "Données invalides." });
+        res.json({ "msg": validMessage });
     } else {
 
         MongoClient.connect(url, (err, client) => {
@@ -108,11 +108,11 @@ router.put('/task/:id', function(req, res, next) {
     var task = req.body;
     task.completed = false;
 
-
+    var validMessage = isTaskValid(task);
     // Checks for data
-    if (!isTaskValid(task)) {
+    if (validMessage.length > 18) {
         res.status(400);
-        res.json({ "msg": "The task needs a title and a description, try again." });
+        res.json({ "msg": validMessage });
     } else {
         MongoClient.connect(url, (err, client) => {
             // MongoDB Connect Callback Function
@@ -139,12 +139,13 @@ router.put('/:id', function(req, res, next) {
     // HTTP Request Callback Function
 
     var person = req.body;
-
+    var validMessage = isPersonValid(person);
     // Checks for data
-    if (!isPersonValid(person)) {
+    if (validMessage.length > 20) {
         res.status(400);
-        res.json({ "msg": "Données invalides." });
+        res.json({ "msg": validMessage });
     } else {
+
         MongoClient.connect(url, (err, client) => {
             // MongoDB Connect Callback Function
 
@@ -194,20 +195,47 @@ router.delete('/:id', function(req, res, next) {
 /**
  * Function used to validate if the field are present and correct.
  * @param { Person } person the person to validate.
- * @return true if the person is valid
+ * @return 'A person requires a '
  */
 function isPersonValid(person) {
-    if (!(person.firstName) || !(person.lastName || !(person.birthDate) || !(person.email) || !(person.phoneNumbrer))) {
-        return false;
+    var returnMessage = 'A person requires a ';
+    if (!(person.firstName)) {
+        returnMessage += 'first name,'
     }
-    return true;
+    if (!(person.lastName)) {
+        returnMessage += ' last name,'
+    }
+    if (!(person.birthDate)) {
+        returnMessage += ' date of birth,'
+    }
+    if (!(person.email)) {
+        returnMessage += ' email,'
+    }
+    if (!(person.phoneNumber)) {
+        returnMessage += ' phone number.'
+    }
+    if (returnMessage.endsWith(',')) {
+        returnMessage = returnMessage.slice(0, -1) + '.';
+    }
+    return returnMessage;
 }
-
+/**
+ * Used to validate a task
+ * 
+ * @param {*} task the task to validate
+ */
 function isTaskValid(task) {
-    if (!(task.title) || !(task.description)) {
-        return false;
+    var returnMessage = 'A task requires a ';
+    if (!(task.title)) {
+        returnMessage += 'title,';
     }
-    return true;
+    if (!(task.description)) {
+        returnMessage += ' description.';
+    }
+    if (returnMessage.endsWith(',')) {
+        returnMessage = returnMessage.slice(0, -1) + '.';
+    }
+    return returnMessage;
 }
 
 module.exports = router;

@@ -4,16 +4,12 @@
         <div class='col-100'>
             <table class='tasks-list'>
                 <tr>
-                    <th>Completed</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Assign To</th>
                     <th>Delete</th>
                 </tr>
                 <tr *ngFor='let task of tasks'>
-                    <td>
-                        <input (change)="onToggle(task)" type="checkbox">
-                    </td>
                     <td>{{ task.title }}</td>
                     <td>{{ task.description }}</td>
                     <td>

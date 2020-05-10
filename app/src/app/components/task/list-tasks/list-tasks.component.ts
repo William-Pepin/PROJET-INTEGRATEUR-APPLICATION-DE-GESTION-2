@@ -1,13 +1,24 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+
+// Models
 import { Task } from 'src/app/models/Task';
 import { Person } from 'src/app/models/Person';
+
+// Services
 import { TaskService } from 'src/app/services/task.service';
 
+
+// Decorator
 @Component({
   selector: 'app-list-tasks',
   templateUrl: './list-tasks.component.html',
   styleUrls: ['./list-tasks.component.css']
 })
+
+/**
+ * List Tasks class
+ * Used to list unassigned tasks
+ */
 export class ListTasksComponent implements OnInit {
   // Input
   @Input() tasks: Task[];
