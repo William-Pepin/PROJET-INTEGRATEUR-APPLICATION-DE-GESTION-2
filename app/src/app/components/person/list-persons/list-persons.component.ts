@@ -27,6 +27,9 @@ export class ListPersonsComponent implements OnInit {
   @Output() deletePerson: EventEmitter<Person> = new  EventEmitter();
   @Output() modifyPerson: EventEmitter<Person> = new EventEmitter();
   @Output() assignTaskToPerson: EventEmitter<Person> = new EventEmitter();
+  @Output() modifyPersonTask: EventEmitter<Person> = new EventEmitter();
+  @Output() deletePersonTask: EventEmitter<Person> = new EventEmitter();
+
 
   // Output
   
@@ -54,6 +57,14 @@ export class ListPersonsComponent implements OnInit {
   }
   onDelete(person){
     this.deletePerson.emit(person);
+  }
+
+  onModifyTask(person){
+    this.modifyPersonTask.emit(person);
+
+  }
+  onDeleteTask(person){
+    this.deletePersonTask.emit(person);
   }
 
 }

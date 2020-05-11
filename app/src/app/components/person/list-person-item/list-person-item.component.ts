@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Person } from 'src/app/models/Person';
 import { PersonService } from 'src/app/services/person.service';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-list-person-item',
@@ -16,6 +17,9 @@ export class ListPersonItemComponent implements OnInit {
   @Output() deletePerson: EventEmitter<Person> = new EventEmitter();
   @Output() modifyPerson: EventEmitter<Person> = new EventEmitter();
   @Output() assignTaskToPerson: EventEmitter<Person> = new EventEmitter();
+  @Output() modifyPersonTask: EventEmitter<Person> = new EventEmitter();
+  @Output() deletePersonTask: EventEmitter<Person> = new EventEmitter();
+
 
   constructor(private personService: PersonService) { }
 
@@ -36,6 +40,18 @@ export class ListPersonItemComponent implements OnInit {
   }
   onDelete(person) {
     this.deletePerson.emit(person);
+  }
+
+  toggleCompleted(task){
+    var index = this.person.tasks.findIndex(t => t._id === task._id);
+    this.person.tasks[index] = task;
+
+    this.modifyPersonTask.emit(this.person);
+  }
+
+  deleteTask(task){
+    this.person.tasks = this.person.tasks.filter(t => t._id !== task._id);
+    this.deletePersonTask.emit(this.person);
   }
   
   calculateAge(person){

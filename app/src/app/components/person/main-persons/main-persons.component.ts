@@ -77,7 +77,7 @@ export class MainPersonsComponent implements OnInit {
         var msg = 'Person successfully added.';
         const modalRef = this.modalService.open(ModalConfirmContentComponent);
         modalRef.componentInstance.object = msg;
-        
+
         person._id = result.insertedId;
         this.persons.push(person);
 
@@ -144,6 +144,55 @@ export class MainPersonsComponent implements OnInit {
     });
   }
 
+  /**
+  * Used to modify a person task
+  * @param { Person } person : the person to modify
+  */
+  modifyPersonTask(person: Person) {
+
+
+    this.personService.modifyPerson(person).subscribe(result => {
+      // Success to modify
+
+    }, error => {
+      // Error to modify
+      var msg;
+      if (error.error.msg !== undefined) {
+        msg = error.error.msg;
+      } else {
+        msg = "Error modifying the task, please try again.";
+      }
+      const modalConf = this.modalService.open(ModalConfirmContentComponent, msg);
+      modalConf.componentInstance.object = msg;
+    })
+  }
+
+
+
+  /**
+ * Used to delete a person task
+ * @param { Person } person : the person to modify
+ */
+  deletePersonTask(person: Person) {
+
+
+    this.personService.modifyPerson(person).subscribe(result => {
+      // Success to modify
+
+    }, error => {
+      // Error to modify
+      var msg;
+      if (error.error.msg !== undefined) {
+        msg = error.error.msg;
+      } else {
+        msg = "Error deleting the task, please try again.";
+      }
+      const modalConf = this.modalService.open(ModalConfirmContentComponent, msg);
+      modalConf.componentInstance.object = msg;
+    })
+  }
+
+
 
   /**
    * Method used to delete a person
@@ -166,7 +215,7 @@ export class MainPersonsComponent implements OnInit {
         modalConf.componentInstance.object = msg;
 
         // Update persons array
-        this.persons = this.persons.filter(p => p._id != person._id);
+        this.persons = this.persons.filter(p => p._id !== person._id);
 
       }, error => {
 
@@ -180,6 +229,11 @@ export class MainPersonsComponent implements OnInit {
   }
 
 
+  
+  /**
+   * Method used to assign a task to a person
+   * @param person person to assign a task to
+   */
   assignTaskToPerson(person: Person) {
     // Assign a task modal
     const modalRef = this.modalService.open(ModalAssignPersonTaskContentComponent);
@@ -220,6 +274,8 @@ export class MainPersonsComponent implements OnInit {
     })
   }
 
+
+
   /**
    * Function used to validate if the field are present and correct.
    * @param { Person } person the person to validate.
@@ -233,9 +289,10 @@ export class MainPersonsComponent implements OnInit {
     if (!(person.lastName)) {
       returnMessage += ' a last name,'
     }
+    console.log(person.birthDate);
     if (!(person.birthDate)) {
       returnMessage += ' a date of birth,'
-    } else if (person.birthDate.getTime() > Date.now()) {
+    } else if (new Date(person.birthDate).getTime() > Date.now()) {
       returnMessage += ' a date of birth lower than the current date,'
     }
 

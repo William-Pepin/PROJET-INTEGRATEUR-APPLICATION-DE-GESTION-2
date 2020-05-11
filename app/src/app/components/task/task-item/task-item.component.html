@@ -1,7 +1,6 @@
-<div class='wrapper'>
-    <input type="checkbox">
-    <h6>{{task.title}}</h6>
-    <p>{{task.description}}</p>
-
-    <button class='del'>X</button>
+<div class='wrapper' [ngClass] = setClasses()>
+    <input class='completed' type="checkbox" (change)='onToggle(task)'>
+    <h6 class='title'>{{task.title}}</h6 >
+    <button class='del btn btn-danger' (click)='onDelete(task)'>X</button>
+    <p class='description'>{{task.description}}</p>
 </div>

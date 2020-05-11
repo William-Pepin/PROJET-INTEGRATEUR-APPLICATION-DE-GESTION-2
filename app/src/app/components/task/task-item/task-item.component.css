@@ -12,5 +12,26 @@ text-decoration: line-through;
 
 .wrapper{
     display: grid;
+    grid-template-columns: 0.2fr 5fr 0.2fr;
+    grid-template-areas:
+    'completed title delete'
+    'description description description';
 
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    margin: 1%;
+    padding: 1%;
+    
+}
+.completed{
+    grid-area: completed;
+}
+.title{
+    grid-area: title;
+}
+.description{
+    grid-area: description;
+}  
+.del{
+    grid-area: delete;
 }

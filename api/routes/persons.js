@@ -134,6 +134,8 @@ router.put('/task/:id', function (req, res, next) {
     }
 });
 
+
+
 /* PUT MORE THAN ONE TASK TO A PERSON */
 router.put('/tasks/:id', function (req, res, next) {
     // HTTP Request Callback Function
@@ -145,7 +147,7 @@ router.put('/tasks/:id', function (req, res, next) {
         var validMessage = isTaskValid(task);
         if (validMessage.length > 18) {
             res.status(400);
-            res.json({ "msg": "Une des tâches est invalide." });
+            res.json({ "msg": "One of the tasks is invalid." });
             valid = false;
             return;
         }
@@ -182,7 +184,7 @@ router.put('/:id', function (req, res, next) {
         delete person._id;
     } else {
         res.status(400);
-        res.json({ 'msg': 'Error adding the person, try again.' });
+        res.json({ 'msg': 'Error modifying the person, try again.' });
     }
 
     var validMessage = isPersonValid(person);
@@ -200,6 +202,40 @@ router.put('/:id', function (req, res, next) {
 
             // MongoDB Query -> find one person creates ObjectID from string given in the id request parameters
             db.collection(collection).updateOne({ _id: ObjectID.createFromHexString(req.params.id) }, { $set: person },
+                (err, result) => {
+                    // MongoDB Query Callback Function
+
+                    if (err) return console.log(err)
+                    console.log(result);
+                    res.json(result);
+                });
+            client.close(); // Close connection
+        });
+    }
+});
+
+
+/* Update A TASK TO A PERSON */
+router.put('/updatetask/:id', function (req, res, next) {
+    // HTTP Request Callback Function
+
+    var task = req.body;
+    task.completed = false;
+
+    var validMessage = isTaskValid(task);
+    // Checks for data
+    if (validMessage.length > 18) {
+        res.status(400);
+        res.json({ "msg": validMessage });
+    } else {
+        MongoClient.connect(url, (err, client) => {
+            // MongoDB Connect Callback Function
+
+            assert.equal(null, err); // Checks if there's no error
+            const db = client.db(dbName);
+
+            // MongoDB Query -> find one person creates ObjectID from string given in the id request parameters
+            db.collection(collection).updateOne({ "tasks._id": ObjectID.createFromHexString(req.params.id) }, { $set: { "task.$": task } },
                 (err, result) => {
                     // MongoDB Query Callback Function
 

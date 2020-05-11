@@ -6,6 +6,8 @@
     (modifyPerson)='onModify($event)'
     (deletePerson)='onDelete($event)'
     (assignTaskToPerson)='onAssign($event)'
+    (modifyPersonTask)='onModifyTask($event)'
+    (deletePersonTask)='onDeleteTask($event)'
     *ngFor='let person of persons' [person]='person'>
     </app-list-person-item>
 </div>

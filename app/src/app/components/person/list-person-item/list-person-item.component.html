@@ -23,7 +23,11 @@
 
     <div class='tasks'>
         <h5>Tasks</h5>
-        <app-task-item *ngFor='let task of person.tasks' [task]='task'>
+        <app-task-item
+        *ngFor='let task of person.tasks'
+        [task]='task'
+        (toggleCompleted)='toggleCompleted($event)'
+        (deleteTask)='deleteTask($event)'>
 
         </app-task-item>
     </div>
