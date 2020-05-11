@@ -274,36 +274,49 @@ router.delete('/:id', function (req, res, next) {
 
 
 
+
 /**
- * Function used to validate if the field are present and correct.
- * @param { Person } person the person to validate.
- * @return 'A person requires a '
- */
-function isPersonValid(person) {
+   * Function used to validate if the field are present and correct.
+   * @param { Person } person the person to validate.
+   * @return 'A person requires'
+   */
+  function isPersonValid(person) {
+
     var returnMessage = 'A person requires';
+
     if (!(person.firstName)) {
-        returnMessage += ' a first name,'
+      returnMessage += ' a first name,'
     }
     if (!(person.lastName)) {
-        returnMessage += ' a last name,'
+      returnMessage += ' a last name,'
     }
+
+
     if (!(person.birthDate)) {
-        returnMessage += ' a date of birth,'
+      returnMessage += ' a date of birth,'
     } else if (new Date(person.birthDate).getTime() > Date.now()) {
-        returnMessage += ' a date of birth lower than the current date,'
+      returnMessage += ' a date of birth lower than the current date,'
     }
 
     if (!(person.email)) {
-        returnMessage += ' an email,'
+      returnMessage += ' an email,'
+      // https://www.w3resource.com/javascript/form/email-validation.php
+    } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(person.email))){
+      returnMessage += ' a valid email,'
     }
+
     if (!(person.phoneNumber)) {
-        returnMessage += ' a phone number.'
+      returnMessage += ' a phone number,'
+      // https://www.w3resource.com/javascript/form/phone-no-validation.php
+    } else if (!(person.phoneNumber.match(
+        /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/))){
+      returnMessage += ' a XXX-XXX-XXXX formatted phone number.'
     }
     if (returnMessage.endsWith(',')) {
-        returnMessage = returnMessage.slice(0, -1) + '.';
+      returnMessage = returnMessage.slice(0, -1) + '.';
     }
     return returnMessage;
-}
+  }
 /**
  * Used to validate a task
  * 

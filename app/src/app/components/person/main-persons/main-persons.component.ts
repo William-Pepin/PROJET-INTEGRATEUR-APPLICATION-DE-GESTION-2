@@ -282,14 +282,17 @@ export class MainPersonsComponent implements OnInit {
    * @return 'A person requires'
    */
   isPersonValid(person) {
+
     var returnMessage = 'A person requires';
+
     if (!(person.firstName)) {
       returnMessage += ' a first name,'
     }
     if (!(person.lastName)) {
       returnMessage += ' a last name,'
     }
-    console.log(person.birthDate);
+
+
     if (!(person.birthDate)) {
       returnMessage += ' a date of birth,'
     } else if (new Date(person.birthDate).getTime() > Date.now()) {
@@ -298,9 +301,17 @@ export class MainPersonsComponent implements OnInit {
 
     if (!(person.email)) {
       returnMessage += ' an email,'
+      // https://www.w3resource.com/javascript/form/email-validation.php
+    } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(person.email))){
+      returnMessage += ' a valid email,'
     }
+
     if (!(person.phoneNumber)) {
-      returnMessage += ' a phone number.'
+      returnMessage += ' a phone number,'
+      // https://www.w3resource.com/javascript/form/phone-no-validation.php
+    } else if (!(person.phoneNumber.match(
+      /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/))){
+      returnMessage += ' a XXX-XXX-XXXX formatted phone number.'
     }
     if (returnMessage.endsWith(',')) {
       returnMessage = returnMessage.slice(0, -1) + '.';

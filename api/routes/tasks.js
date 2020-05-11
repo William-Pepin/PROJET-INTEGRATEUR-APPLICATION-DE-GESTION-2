@@ -190,7 +190,7 @@ router.delete('/:id', function(req, res, next) {
 /**
  * Used to validate a task
  * 
- * @param {*} task the task to validate
+ * @param {Task} task the task to validate
  */
 function isTaskValid(task) {
     var returnMessage = 'A task requires a ';

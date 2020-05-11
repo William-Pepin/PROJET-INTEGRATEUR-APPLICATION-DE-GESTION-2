@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Person } from 'src/app/models/Person';
 import { PersonService } from 'src/app/services/person.service';
-import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-list-person-item',

@@ -19,6 +19,7 @@
     </table>
 </div>
 <div class="modal-footer">
+    <a class="btn btn-outline-secondary" routerLink='/tasks' (click)="activeModal.dismiss('cancel click')">Add tasks</a>
     <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
     <button type="button" class="btn btn-success" (click)="passBack()">Confirm</button>
 </div>
