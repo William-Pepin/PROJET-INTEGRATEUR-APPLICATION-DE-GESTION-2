@@ -19,3 +19,6 @@ textarea {
     width: 75%;
     margin-top: 6px;
 }
+.modal-body{
+    overflow-x: auto;
+}

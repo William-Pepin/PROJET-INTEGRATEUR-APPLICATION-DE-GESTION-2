@@ -93,6 +93,16 @@ export class PersonService {
     // HTTP PUt request using the task object and the content-type header.
     return this.http.put<Task>(this.url + 'task/' + person_id, task, httpHeaders);
   }
+    /**
+   * 
+   * @param task the task to add
+   * @param person_id the id the add the task to the specified person
+   * @return any Observable from the api (the response)
+   */
+  addPersonTasks(tasks:Task[], person_id): Observable<any> {
+    // HTTP PUt request using the task object and the content-type header.
+    return this.http.put<Task>(this.url + 'tasks/' + person_id, tasks, httpHeaders);
+  }
 
 
 

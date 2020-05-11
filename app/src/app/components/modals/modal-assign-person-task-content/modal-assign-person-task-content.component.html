@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ person.firstName }} {{ person.lastName }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <table class='tasks-list'>
+        <tr>
+            <th>Assign</th>
+            <th>Title</th>
+        </tr>
+        <tr *ngFor='let task of tasks'>
+            <td>
+                <input type="checkbox" name="assignedTask" (change)=modifyAssignedTasks(task)>
+            </td>
+            <td>{{ task.title }}</td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="passBack()">Confirm</button>
+</div>

@@ -7,5 +7,5 @@ export class Person {
     birthDate:Date;
     email:string;
     phoneNumber:string;
-    tasks?:Task[];
+    tasks:Task[];
 }

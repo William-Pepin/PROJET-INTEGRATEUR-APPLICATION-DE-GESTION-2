@@ -28,6 +28,7 @@ import { ModalDeleteContentComponent } from './components/modals/modal-delete-co
 import { ModalAssignContentComponent } from './components/modals/modal-assign-content/modal-assign-content.component';
 import { ModalModifyPersonContentComponent } from './components/modals/modal-modify-person-content/modal-modify-person-content.component';
 import { ModalDeletePersonContentComponent } from './components/modals/modal-delete-person-content/modal-delete-person-content.component';
+import { ModalAssignPersonTaskContentComponent } from './components/modals/modal-assign-person-task-content/modal-assign-person-task-content.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ModalDeletePersonContentComponent } from './components/modals/modal-del
     ModalDeleteContentComponent,
     ModalAssignContentComponent,
     ModalModifyPersonContentComponent,
-    ModalDeletePersonContentComponent
+    ModalDeletePersonContentComponent,
+    ModalAssignPersonTaskContentComponent
 
   ],
   imports: [

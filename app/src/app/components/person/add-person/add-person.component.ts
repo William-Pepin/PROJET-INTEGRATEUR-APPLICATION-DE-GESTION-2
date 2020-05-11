@@ -42,6 +42,7 @@ export class AddPersonComponent implements OnInit {
     this.person.birthDate = new Date(this.birthDate);
     this.person.email = this.email;
     this.person.phoneNumber = this.phoneNumber
+    this.person.tasks = [];
     // Emit the addPerson emitter with the newly made person.
     this.addPerson.emit(this.person);
   }

@@ -7,3 +7,6 @@ textarea {
     border-radius: 4px;
     resize: vertical;
 }
+.modal-body{
+    overflow-x: auto;
+}

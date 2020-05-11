@@ -29,7 +29,6 @@ export class ListPersonItemComponent implements OnInit {
 
   onModify(person) {
     this.modifyPerson.emit(person);
-    this.calculateAge(person);
   }
 
   onAssign(person) {

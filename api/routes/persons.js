@@ -76,7 +76,7 @@ router.post('/', (req, res, next) => {
     var person = req.body;
     var validMessage = isPersonValid(person);
     // Checks for data
-    if (validMessage.length > 20) {
+    if (validMessage.length > 17) {
         res.status(400);
         res.json({ "msg": validMessage });
     } else {
@@ -102,7 +102,7 @@ router.post('/', (req, res, next) => {
 });
 
 /* PUT A TASK TO A PERSON */
-router.put('/task/:id', function(req, res, next) {
+router.put('/task/:id', function (req, res, next) {
     // HTTP Request Callback Function
 
     var task = req.body;
@@ -134,21 +134,60 @@ router.put('/task/:id', function(req, res, next) {
     }
 });
 
+/* PUT MORE THAN ONE TASK TO A PERSON */
+router.put('/tasks/:id', function (req, res, next) {
+    // HTTP Request Callback Function
+
+    var tasks = req.body;
+    console.log(tasks);
+    var valid = true;
+    tasks.forEach(task => {
+        var validMessage = isTaskValid(task);
+        if (validMessage.length > 18) {
+            res.status(400);
+            res.json({ "msg": "Une des tâches est invalide." });
+            valid = false;
+            return;
+        }
+    });
+
+    // Checks for data
+    if (valid) {
+        MongoClient.connect(url, (err, client) => {
+            // MongoDB Connect Callback Function
+
+            assert.equal(null, err); // Checks if there's no error
+            const db = client.db(dbName);
+
+            // MongoDB Query -> find one person creates ObjectID from string given in the id request parameters
+            db.collection(collection).update({ _id: ObjectID.createFromHexString(req.params.id) }, { $push: { tasks: { $each: tasks } } },
+                (err, result) => {
+                    // MongoDB Query Callback Function
+
+                    if (err) return console.log(err)
+                    console.log(result);
+                    res.json(result);
+                });
+            client.close(); // Close connection
+        });
+    }
+});
+
 /* PUT */
-router.put('/:id', function(req, res, next) {
+router.put('/:id', function (req, res, next) {
     // HTTP Request Callback Function
 
     var person = req.body;
-    if(req.params.id === person._id){
+    if (req.params.id === person._id) {
         delete person._id;
-    }else{
+    } else {
         res.status(400);
-        res.json({'msg': 'Error adding the person, try again.'});
+        res.json({ 'msg': 'Error adding the person, try again.' });
     }
 
     var validMessage = isPersonValid(person);
     // Checks for data
-    if (validMessage.length > 20) {
+    if (validMessage.length > 17) {
         res.status(400);
         res.json({ "msg": validMessage });
     } else {
@@ -176,10 +215,10 @@ router.put('/:id', function(req, res, next) {
 
 
 /* DELETE */
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function (req, res, next) {
     // HTTP Request Callback Function
 
-    MongoClient.connect(url, function(err, client) {
+    MongoClient.connect(url, function (err, client) {
         // MongoDB Connect Callback Function
 
         assert.equal(null, err);
@@ -205,21 +244,24 @@ router.delete('/:id', function(req, res, next) {
  * @return 'A person requires a '
  */
 function isPersonValid(person) {
-    var returnMessage = 'A person requires a ';
+    var returnMessage = 'A person requires';
     if (!(person.firstName)) {
-        returnMessage += 'first name,'
+        returnMessage += ' a first name,'
     }
     if (!(person.lastName)) {
-        returnMessage += ' last name,'
+        returnMessage += ' a last name,'
     }
     if (!(person.birthDate)) {
-        returnMessage += ' date of birth,'
+        returnMessage += ' a date of birth,'
+    } else if (new Date(person.birthDate).getTime() > Date.now()) {
+        returnMessage += ' a date of birth lower than the current date,'
     }
+
     if (!(person.email)) {
-        returnMessage += ' email,'
+        returnMessage += ' an email,'
     }
     if (!(person.phoneNumber)) {
-        returnMessage += ' phone number.'
+        returnMessage += ' a phone number.'
     }
     if (returnMessage.endsWith(',')) {
         returnMessage = returnMessage.slice(0, -1) + '.';
