@@ -292,7 +292,7 @@ export class MainPersonsComponent implements OnInit {
       returnMessage += ' a last name,'
     }
 
-
+    // compared to Invalid Date to see if it is a valid date.
     if (!(person.birthDate) || person.birthDate == 'Invalid Date') {
       returnMessage += ' a date of birth,'
     } else if (new Date(person.birthDate).getTime() > Date.now()) {
